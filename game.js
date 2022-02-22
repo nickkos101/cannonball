@@ -60,7 +60,7 @@ class windsheildRockEvent extends gEventClass {
   }
   play(player) {
     if (player.isMoving) {
-      soundEngine('thunk.wav');
+      soundEngine('assets/sound/thunk.wav');
       //Reduce the players cars windSheildStatus.
       player.car.windSheildStatus = player.car.windSheildStatus - 25;
       //Put the event in the activity log.
@@ -79,7 +79,7 @@ class windSheildBreakEvent extends gEventClass {
     if (player.car.windSheildStatus <= 0 && player.isMoving) {
       player.isMoving = false;
       player.waitToTick = player.ticks + 3;
-      soundEngine('glass.wav');
+      soundEngine('assets/sound/glass.wav');
       $('.activity-log').prepend('<p class="text-danger">'+this.desc+'</p>');
       $('.crack').show();
     }
@@ -97,7 +97,7 @@ class windSheildFixEvent extends gEventClass {
         $('.crack').hide();
         player.car.windSheildStatus = 100;
         player.money = player.money - 100;
-        soundEngine('repair.wav');
+        soundEngine('assets/sound/repair.wav');
         $('.activity-log').prepend('<p class="text-warning">'+this.desc+'</p>');
       } else {
         player.money = player.money - 100;
@@ -114,7 +114,7 @@ class foundMoneyEvent extends gEventClass {
     let randMoney = Math.floor((Math.random() * 355) + 1);
     player.money = player.money + randMoney;
     $('.activity-log').prepend('<p class="text-success">You found $'+randMoney+'!</p>');
-    soundEngine('cash.wav');
+    soundEngine('assets/sound/cash.wav');
   }
 }
 
@@ -135,7 +135,7 @@ class haveToPissEvent extends gEventClass {
   }
   play(player) {
     if (player.bladder <= 0) {
-      soundEngine('piss.wav');
+      soundEngine('assets/sound/piss.wav');
       player.bladder = 100;
       $('.activity-log').prepend('<p class="text-warning">'+this.desc+'</p>');
     }
@@ -166,14 +166,14 @@ class speedingEvent extends gEventClass {
     if (fineAmount % 2 == 0 && fineAmount > 0) {
       console.log(fineAmount);
       $('.activity-log').prepend('<p class="text-warning">You have been pulled over for speeding but were let off with a warning!</p>');
-      soundEngine('siren.wav');
+      soundEngine('assets/sound/siren.wav');
       $('.sirens').show();
       player.waitToTick = player.ticks + 1;
     }
     else if (fineAmount > 0) {
       player.money = player.money - fineAmount;
       $('.activity-log').prepend('<p class="text-danger">You have been pulled over for speeding and fined: $'+fineAmount+'</p>');
-      soundEngine('siren.wav');
+      soundEngine('assets/sound/siren.wav');
       $('.sirens').show();
       player.waitToTick = player.ticks + 2;
     }
@@ -195,7 +195,7 @@ class reckLessDrivingEvent extends gEventClass {
       //Append to activity log.
       $('.jail').show();
       $('.activity-log').prepend('<p class="text-danger">You have been jailed '+jailTime+' days for reckless driving!</p>');
-      soundEngine('siren.wav');
+      soundEngine('assets/sound/siren.wav');
     }
   }
 }
@@ -286,7 +286,7 @@ function gasTick(player) {
 
       //Warn the player they ran out of gas and restart the game.
       player.isMoving = false;
-      soundEngine('outofgas.wav');
+      soundEngine('assets/sound/outofgas.wav');
       alert('You ran out of gas!');
       location.reload();
     }
@@ -314,7 +314,7 @@ function moveTick(player) {
 function moneyTick(player) {
 
   if (player.money <= 0) {
-    soundEngine('outofmoney.wav');
+    soundEngine('assets/sound/outofmoney.wav');
     alert('You have run out of money!');
     location.reload();
     //Just draw the money on the interface.
