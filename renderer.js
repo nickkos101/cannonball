@@ -9,9 +9,9 @@ function renderTick() {
 
 function spawnCars(trafficFrequency) {
   let potentialCars = [
-    'car-black.png',
-    'car-red.png',
-    'car-blue.png'
+    'assets/gfx/car-black.png',
+    'assets/gfx/car-red.png',
+    'assets/gfx/car-blue.png'
   ];
   $('.car_spawner').append('<img src="'+potentialCars[Math.floor(Math.random()*potentialCars.length)]+'">');
   $('.car_spawner img').animate({
@@ -23,9 +23,9 @@ function spawnCars(trafficFrequency) {
 
 function spawnBuilding(buildingFrequency) {
   let potentialBuildings = [
-    'building_tall_3x9.png',
-    'building_square_5x5.png',
-    'building_square_7x7.png'
+    'assets/gfx/building_tall_3x9.png',
+    'assets/gfx/building_square_5x5.png',
+    'assets/gfx/building_square_7x7.png'
   ];
   $('.building_spawner').append('<img src="'+potentialBuildings[Math.floor(Math.random()*potentialBuildings.length)]+'">');
   $('.building_spawner img').animate({

@@ -157,7 +157,7 @@
   display: inline-block;
   width:100px;
   height:100px;
-  background-image:url('interstate.png');
+  background-image:url('assets/gfx/interstate.png');
   color: #fff;
   font-size: 42px;
   padding-top: 20px;
@@ -291,7 +291,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background-image:url('jail.png');
+  background-image:url('assets/gfx/jail.png');
   display: none;
 }
 
@@ -301,7 +301,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background-image:url('crack.png');
+  background-image:url('assets/gfx/crack.png');
   display: none;
 }
 
