@@ -1,6 +1,3 @@
-var trafficFrequency = $('.trafficFrequency').val();
-var buildingFrequency = $('.buildingFrequency').val();
-
 function renderTick() {
   spawnBuilding();
   spawnCars();
@@ -8,7 +5,7 @@ function renderTick() {
 
 
 //Spawns Random Cars and animates them across the screen over 5 seconds and then removes them from memory.
-function spawnCars(trafficFrequency) {
+function spawnCars() {
   let potentialCars = [
     'assets/gfx/car-black.png',
     'assets/gfx/car-red.png',
@@ -37,11 +34,32 @@ function spawnSigns(currentMilage, routeStop) {
 }
 
 //Spawns a random building and animates it across the screen over 10 seconds before removing it.
-function spawnBuilding(buildingFrequency) {
+function spawnBuilding() {
   let potentialBuildings = [
-    'assets/gfx/building_tall_3x9.png',
-    'assets/gfx/building_square_5x5.png',
-    'assets/gfx/building_square_7x7.png'
+    'assets/gfx/building-vegas-set-1.png',
+    'assets/gfx/building-vegas-set-2.png',
+    'assets/gfx/building-vegas-set-3.png',
+    'assets/gfx/building-vegas-set-4.png',
+    'assets/gfx/building-vegas-set-5.png',
+    'assets/gfx/building-vegas-set-6.png',
+    'assets/gfx/building-vegas-set-7.png',
+    'assets/gfx/building-vegas-set-8.png',
+    'assets/gfx/building-vegas-set-9.png',
+    'assets/gfx/building-set-riverside-1.png',
+    'assets/gfx/building-set-riverside-2.png',
+    'assets/gfx/building-set-riverside-3.png',
+    'assets/gfx/building-set-riverside-4.png',
+    'assets/gfx/building-set-riverside-5.png',
+    'assets/gfx/building-set-riverside-6.png',
+    'assets/gfx/building-set-riverside-7.png',
+    'assets/gfx/building-set-riverside-8.png',
+    'assets/gfx/building-set-riverside-9.png',
+    'assets/gfx/building-set-riverside-10.png',
+    'assets/gfx/building-set-riverside-11.png',
+    'assets/gfx/building-set-riverside-12.png',
+    'assets/gfx/building-set-riverside-13.png',
+    'assets/gfx/building-set-riverside-14.png',
+    'assets/gfx/building-set-riverside-15.png',
   ];
   $('.building_spawner').append('<img src="'+potentialBuildings[Math.floor(Math.random()*potentialBuildings.length)]+'">');
   $('.building_spawner img').animate({
@@ -53,16 +71,20 @@ function spawnBuilding(buildingFrequency) {
 
 $(document).ready(function(){
   
+  let buildingFrequency = $('.buildingFrequency').val();
+  
+  var buildingSpawnInterval = setInterval(function(){
+    spawnBuilding();
+  }, buildingFrequency);
+  
+  
   $('.buildingFrequency').change(function(){
     buildingFrequency = $(this).val();
+    clearInterval(buildingSpawnInterval);
+    buildingSpawnInterval = setInterval(function(){
+      spawnBuilding();
+    }, buildingFrequency);
   });
   
-  $('.trafficFrequency').change(function(){
-    trafficFrequency = $(this).val();
-  });
-  
-  setInterval(function(){
-    renderTick();
-  }, 3000);
   
 });

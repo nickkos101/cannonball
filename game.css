@@ -424,6 +424,19 @@
   margin: 0;
 }
 
+.background {
+  position: absolute;
+  left: 0;
+  bottom: 55px;
+  background-image:url('assets/gfx/mountains-bkg-purple.png');
+  background-size: auto;
+  background-repeat: repeat-x;
+  width: 200%;
+  height: 145px;
+  animation: background 50s linear infinite;
+  animation-direction: reverse;
+}
+
 
 @-webkit-keyframes DayNight {
   0%{opacity: 10%}
@@ -480,4 +493,10 @@
     right: 102%;
     bottom: 0;
   }
+}
+
+
+@-webkit-keyframes background {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
