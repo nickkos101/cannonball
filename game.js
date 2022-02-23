@@ -363,9 +363,6 @@ let player = new playerClass(playerNamePromptAnswer);
 $(document).ready(function(){
   console.log('GameState Started');
 
-  let test = new routeMap(player);
-  console.log(test);
-
   generateRoute(player, interStateList);
 
   $('#gasButton').click(function(){
