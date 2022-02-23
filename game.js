@@ -278,6 +278,10 @@ function moveTick(player) {
   if (player.isMoving) {
     player.milesTraveled = player.milesTraveled + (player.milesPerTick * mph);
   }
+
+  //Controls Routing Stop Checks
+  player.route.checkRoute();
+
   //Update the Interface Elements for Movement
   $('.milesTraveled').html(Math.ceil(player.milesTraveled));
 
