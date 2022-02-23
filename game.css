@@ -381,6 +381,10 @@
   margin: 0;
 }
 
+.car-selector.active {
+  border: 1px solid #d40000;
+}
+
 .car-selector ul {
   font-family: 'Roboto', sans-serif;
   background-color: #f7f7f7;

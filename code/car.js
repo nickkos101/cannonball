@@ -17,10 +17,8 @@ let carClass = class {
         },
         this.windSheildStatus = 100
     }
-    draw_select_interface() {
-        $('.car-select').append(
-            '<div class="car-selector col-xs-12 col-sm-4 text-center"><img src="'+this.screenSelectAsset+'"><h2>'+this.name+'</h2><ul class="text-start"><li>Starting Cost: $'+this.cost.toLocaleString()+'</li><li>Top Speed: '+this.maxMph+' MPH</li><li>Fuel Economy: '+this.milesPerGallon+' MPG</li></ul></div>'
-        );
+    drawInGame() {
+        $('.car').attr('src', this.inGameAsset);       
     }
 }
 
@@ -50,9 +48,3 @@ Ferrari.fuelTanksize = 24.6;
 Ferrari.currentFuel = Ferrari.fuelTanksize;
 Ferrari.milesPerGallon = 11;
 Ferrari.maxMph = 180;
-
-$(document).ready(function(){
-    Lambo.draw_select_interface();
-    Porsche.draw_select_interface();
-    Ferrari.draw_select_interface();
-});

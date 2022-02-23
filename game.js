@@ -1,6 +1,8 @@
 //CannonBall Run Simulation Game Inspired by "The Oregon Trail"
 //Written By Nicholas Koskowski Febuary 9th, 2022
 
+const urlParams = new URLSearchParams(window.location.search);
+
 function generateRoute(player, interstatelist) {
   //Pick a random starting interstate
   let startingPoint = interstatelist[Math.floor(Math.random()*interstatelist.length)];
@@ -10,9 +12,9 @@ function generateRoute(player, interstatelist) {
 
 //Create a player class with a ton of variables to keep & initialize player state.
 let playerClass = class {
-  constructor(playerName, route) {
+  constructor(route) {
     this.ticks = 0;
-    this.playerName = playerName;
+    this.playerName = urlParams.get('playerName');
     this.route = '';
     this.isMoving = true;
     this.waitToTick = 0;
@@ -23,21 +25,16 @@ let playerClass = class {
 
     this.bladder = 100;
 
-    //Create a super object for the car (this should be abstraced out in the future)
-    this.car = {
-      name: '1986 Lamborgini Countach',
-      fuelTanksize: 31.7,
-      currentFuel: 31.7,
-      milesPerGallon: 10,
-      minMph: 0,
-      maxMph: 179,
-      tireStatus: {
-        frontDriver: 100,
-        frontPassenger: 100,
-        rearDriver: 100,
-        rearPassenger: 100
-      },
-      windSheildStatus: 100
+    if (urlParams.get('selectedCar') == 'Lambo') {
+      this.car = Lambo;
+    }
+
+    if (urlParams.get('selectedCar') == 'Porsche') {
+      this.car = Porsche;
+    }
+
+    if (urlParams.get('selectedCar') == 'Ferrari') {
+      this.car = Ferrari;
     }
   }
 }
@@ -357,11 +354,12 @@ function staticEventTick(player) {
 
 
 
-let playerNamePromptAnswer = prompt('What is your name?');
-let player = new playerClass(playerNamePromptAnswer);
+let player = new playerClass();
 
 $(document).ready(function(){
   console.log('GameState Started');
+
+  player.car.drawInGame();
 
   generateRoute(player, interStateList);
 
