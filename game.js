@@ -316,8 +316,8 @@ function randomEventTick(player) {
     foundMoneyEventInstance,
     drinkWaterEventInstance,
     speedingEventInstance,
-    reckLessDrivingEventInstance,
-    beingFollowedEventInstance
+    reckLessDrivingEventInstance
+    // beingFollowedEventInstance
   ];
 
   listOfRandomEvents[Math.floor(Math.random()*listOfRandomEvents.length)].play(player);
