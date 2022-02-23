@@ -1,13 +1,13 @@
 let route = class {
     constructor(routeName) {
         this.name = routeName;
-        this.routeLength = 0;
+        this.Length = 0;
         this.stopsIndex = [];
     }
 }
 
 let FearAndLoathingRoute = new route('Fear and Loathing');
-FearAndLoathingRoute.routeLength = 332;
+FearAndLoathingRoute.Length = 332;
 FearAndLoathingRoute.stopsIndex = [
     { 
         stopName: 'San Diego, CA',

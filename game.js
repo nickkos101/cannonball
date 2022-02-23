@@ -3,19 +3,12 @@
 
 const urlParams = new URLSearchParams(window.location.search);
 
-function generateRoute(player, interstatelist) {
-  //Pick a random starting interstate
-  let startingPoint = interstatelist[Math.floor(Math.random()*interstatelist.length)];
-  player.route = startingPoint;
-  $('.interstate_map').text(startingPoint.Interstate);
-}
-
 //Create a player class with a ton of variables to keep & initialize player state.
 let playerClass = class {
   constructor(route) {
     this.ticks = 0;
     this.playerName = urlParams.get('playerName');
-    this.route = '';
+    this.route = FearAndLoathingRoute;
     this.isMoving = true;
     this.waitToTick = 0;
 
@@ -360,8 +353,6 @@ $(document).ready(function(){
   console.log('GameState Started');
 
   player.car.drawInGame();
-
-  generateRoute(player, interStateList);
 
   $('#gasButton').click(function(){
     purchaseGas(player);
