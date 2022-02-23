@@ -238,23 +238,6 @@ class beingFollowedEvent extends gEventClass {
   }
 }
 
-class routeMap {
-  constructor(player) {
-    this.stops = {
-      0 : {
-        name: "Quick Stop",
-        mileToAppearAt: 100,
-        potentialActions: ["Talk", "Gas", "Eat"],
-      },
-      1 : {
-        name: "Peterson Museum",
-        mileToAppearAt: 200,
-        potentialActions: ["Talk", "Gas", "Eat"],
-      }
-    }
-  }
-}
-
 //Keep track of gas usage every tick that occurs.
 function gasTick(player) {
   var mph = $('.speed').val();
