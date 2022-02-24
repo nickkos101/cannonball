@@ -1,18 +1,5 @@
-.action-pane-1 {
-  border: 1px solid #000;
-  height: 640px;
-  position: relative;
-}
-
-.action-pane-2 {
-  border: 1px solid #000;
-  height: 640px;
-  position: relative;
-}
-
 .world-pane {
   border: 1px solid #000;
-  height: 640px;
   position: relative;
 }
 
@@ -74,12 +61,24 @@
 
 .activity-log {
   border: 1px solid #000;
-  height: 280px;
-  max-height: 280px;
+  height: 240px;
+  max-height: 240px;
   overflow: scroll;
   background-color: rgba(0,0,0,80%);
   padding: 10px 25px;
   color: #fff;
+}
+
+#gasButton {
+  float:left;
+  margin: 20px;
+  margin-right: 50px;
+  margin-bottom:70px;
+}
+
+.stats {
+  list-style: none;
+  margin-top: 15px;
 }
 
 .btn-round {
