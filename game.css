@@ -69,6 +69,10 @@
   color: #fff;
 }
 
+#startButton {
+  margin-bottom: 25px;
+}
+
 #gasButton {
   float:left;
   margin: 20px;
