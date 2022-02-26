@@ -17,7 +17,8 @@ $(document).ready(function(){
         var playerName = $('input[name=playerName]').val();
         // var routeName = $().val();
         var selectedCar = $('input[name=selectedCar]').val();
-        window.location = "game.html?playerName="+playerName+"&selectedCar="+selectedCar;
+        var copilotName = $('input[name=copilotName]').val();
+        window.location = "game.html?playerName="+playerName+"&copilotName="+copilotName+"&selectedCar="+selectedCar;
     });
 
     $('.car-selector').click(function(){

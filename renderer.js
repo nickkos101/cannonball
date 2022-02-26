@@ -19,7 +19,7 @@ function spawnCars() {
   });
 }
 
-//Checks if the player is in the correct position and spawns a sign on the route for it. 
+//Checks if the player is in the correct position and spawns a sign on the route for it.
 //Animating the signs across the screen over 5 seconds before removing it off screen.
 function spawnSigns(currentMilage, routeStop) {
   if (currentMilage == routeStop.stopLength) {
@@ -70,14 +70,14 @@ function spawnBuilding() {
 }
 
 $(document).ready(function(){
-  
+
   let buildingFrequency = $('.buildingFrequency').val();
-  
-  var buildingSpawnInterval = setInterval(function(){
-    spawnBuilding();
-  }, buildingFrequency);
-  
-  
+
+  // var buildingSpawnInterval = setInterval(function(){
+  //   spawnBuilding();
+  // }, buildingFrequency);
+
+
   $('.buildingFrequency').change(function(){
     buildingFrequency = $(this).val();
     clearInterval(buildingSpawnInterval);
@@ -85,6 +85,6 @@ $(document).ready(function(){
       spawnBuilding();
     }, buildingFrequency);
   });
-  
-  
+
+
 });

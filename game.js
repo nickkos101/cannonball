@@ -8,15 +8,75 @@ let playerClass = class {
   constructor(route) {
     this.ticks = 0;
     this.playerName = urlParams.get('playerName');
+    this.copilotName = urlParams.get('copilotName');
     this.route = FearAndLoathingRoute;
     this.isMoving = true;
     this.waitToTick = 0;
 
     this.milesTraveled = 0;
     this.milesPerTick = 0.000277778;
-    this.money = 1000;
+    this.mph = 65;
 
+    //Stats Money and Inventory
+
+    this.hunger = 100;
+    this.thirst = 100;
     this.bladder = 100;
+    this.drowziness = 100;
+
+    this.money = 1000;
+    this.inventory = [
+      {
+        itemName : 'Tire Pressure Gauge',
+        currentVal : 0,
+        maxVal : 1
+      },
+      {
+        itemName : 'Spare Tire',
+        currentVal : 0,
+        maxVal : 1
+      },
+      {
+        itemName : 'Donuts',
+        currentVal : 0,
+        maxVal : 3
+      },
+      {
+        itemName : 'Asprin',
+        currentVal : 0,
+        maxVal : 5
+      },
+      {
+        itemName : 'NoDoze',
+        currentVal : 0,
+        maxVal : 5
+      },
+      {
+        itemName : 'Energy Drink',
+        currentVal : 0,
+        maxVal : 3
+      },
+      {
+        itemName : 'Jumper Cables',
+        currentVal : 0,
+        maxVal : 1
+      },
+      {
+        itemName : 'Snacks',
+        currentVal : 0,
+        maxVal : 5
+      },
+      {
+        itemName : 'Water',
+        currentVal : 0,
+        maxVal : 5
+      },
+      {
+        itemName : 'Asprin',
+        currentVal : 0,
+        maxVal : 5
+      }
+    ]
 
     if (urlParams.get('selectedCar') == 'Lambo') {
       this.car = Lambo;
@@ -137,16 +197,15 @@ class speedingEvent extends gEventClass {
     super('You have been ticketed for Speeding!');
   }
   play(player) {
-    var mph = $('.speed').val();
 
     let fineMax = 0;
     let fineMin = 0;
 
-    if (player.isMoving && mph > 65) {
+    if (player.isMoving && player.mph > 65) {
       fineMin = 50;
       fineMax = 300;
     }
-    if (player.isMoving && mph > 100) {
+    if (player.isMoving && player.mph > 100) {
       fineMin = 100;
       fineMax = 1000;
     }
@@ -175,9 +234,7 @@ class reckLessDrivingEvent extends gEventClass {
     super('You have been pulled over and jailed for reckless driving!');
   }
   play(player) {
-
-    var mph = $('.speed').val();
-    if (mph > 100) {
+    if (player.mph > 100) {
       //Stop moving
       player.isMoving = false;
       let jailTime = Math.floor((Math.random() * 6) + 1);
@@ -230,33 +287,19 @@ class beingFollowedEvent extends gEventClass {
 
 //Keep track of gas usage every tick that occurs.
 function gasTick(player) {
-  var mph = $('.speed').val();
   if (player.isMoving) {
 
-    var fuelSpendPerTick = (player.car.milesPerGallon / mph);
+    var fuelSpendPerTick = (player.car.milesPerGallon / player.mph);
 
     player.car.currentFuel = player.car.currentFuel - fuelSpendPerTick;
 
-    //Do the Interface Updates for Gas Status
-    if ((player.car.currentFuel / player.car.fuelTanksize * 100) <= 100) {
-      $('.gas').html('Full Tank');
-    }
-
-    if ((player.car.currentFuel / player.car.fuelTanksize * 100) <= 75) {
-      $('.gas').html('3/4 Tank');
-    }
-
-    if ((player.car.currentFuel / player.car.fuelTanksize * 100) <= 50) {
-      $('.gas').html('Half Tank');
-    }
-
-    if ((player.car.currentFuel / player.car.fuelTanksize * 100) <= 25) {
-      $('.gas').html('1/4 Tank');
-    }
+    $('#gas').attr('value', player.car.currentFuel);
+    $('#gas').attr('max', player.car.fuelTanksize);
+    $('#gas').attr('low', (player.car.fuelTanksize / 100) * 25);
+    $('#gas').attr('high', (player.car.fuelTanksize / 100) * 65);
+    $('#gas').attr('optimum', (player.car.fuelTanksize / 100) * 80);
 
     if ((player.car.currentFuel / player.car.fuelTanksize * 100) <= 1) {
-      $('.gas').html('Empty');
-
       //Warn the player they ran out of gas and restart the game.
       player.isMoving = false;
       soundEngine('assets/sound/outofgas.wav');
@@ -273,19 +316,18 @@ function purchaseGas(player) {
 }
 
 function moveTick(player) {
-  var mph = $('.speed').val();
 
   if (player.isMoving) {
-    player.milesTraveled = player.milesTraveled + (player.milesPerTick * mph);
+    player.milesTraveled = player.milesTraveled + (player.milesPerTick * player.mph);
   }
+
+  $('.speedometer').html(player.mph);
 
   //Controls Routing Stop Checks
   player.route.checkRoute();
 
   //Update the Interface Elements for Movement
-  $('.milesTraveled').html(Math.ceil(player.milesTraveled));
-
-  $('.milesToGo').html(Math.ceil(player.route.Length) - Math.ceil( player.milesTraveled));
+  $('.odometer').html(Math.ceil(player.milesTraveled).toString()+' / '+(Math.ceil(player.route.Length) - Math.ceil( player.milesTraveled)).toString()+' miles');
 }
 
 function moneyTick(player) {
@@ -296,12 +338,23 @@ function moneyTick(player) {
     location.reload();
     //Just draw the money on the interface.
   }
-  $('.money').html(player.money);
+  $('.money').html('$'+player.money.toString());
+}
+
+function drowzinessTick(player) {
+  $('#drowziness').val(player.drowziness);
+}
+
+function hungerTick(player) {
+  $('#hunger').val(player.hunger);
+}
+
+function thirstTick(player) {
+  $('#thirst').val(player.thirst);
 }
 
 function bladderTick(player) {
-  //Just draw the money on the interface.
-  $('.bladder').html(player.bladder);
+  $('#bladder').val(player.bladder);
 }
 
 function randomEventTick(player) {
@@ -368,10 +421,34 @@ $(document).ready(function(){
     $(this).parent().find('span').append($(this).val());
   });
 
+  $('.decisionContainer button').click(function(){
+    $('.decisionContainer button').removeClass('active');
+    $(this).addClass('active');
+
+    var clickID = $(this).attr('id');
+    console.log(clickID);
+
+    if (clickID == 'speedLimit') {
+      player.mph = 65;
+    }
+
+    if (clickID == 'lawBreaker') {
+      player.mph = 88;
+    }
+
+    if (clickID == 'leadFoot') {
+      player.mph = player.car.maxMph;
+    }
+
+  });
+
   setInterval(function(){
     player.ticks = player.ticks + 1;
     $('.turnstaken').html(player.ticks);
     if (player.isMoving) {
+      drowzinessTick(player);
+      hungerTick(player);
+      thirstTick(player);
       bladderTick(player);
       moneyTick(player);
       moveTick(player);

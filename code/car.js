@@ -18,7 +18,7 @@ let carClass = class {
         this.windSheildStatus = 100
     }
     drawInGame() {
-        $('.car').attr('src', this.inGameAsset);       
+        $('.car').attr('src', this.inGameAsset);
     }
 }
 
@@ -40,7 +40,7 @@ Porsche.currentFuel = Porsche.fuelTanksize;
 Porsche.milesPerGallon = 20.7;
 Porsche.maxMph = 152;
 
-let Ferrari = new carClass('1985 Ferrari Testarossa');
+let Ferrari = new carClass('1985 Ferrari F-40');
 Ferrari.screenSelectAsset = 'assets/gfx/ferrari-select.png';
 Ferrari.inGameAsset = 'assets/gfx/ferrari.png';
 Ferrari.cost = 88000;
