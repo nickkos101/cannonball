@@ -25,58 +25,12 @@ let playerClass = class {
     this.drowziness = 100;
 
     this.money = 1000;
-    this.inventory = [
-      {
-        itemName : 'Tire Pressure Gauge',
-        currentVal : 0,
-        maxVal : 1
-      },
-      {
-        itemName : 'Spare Tire',
-        currentVal : 0,
-        maxVal : 1
-      },
-      {
-        itemName : 'Donuts',
-        currentVal : 0,
-        maxVal : 3
-      },
-      {
-        itemName : 'Asprin',
-        currentVal : 0,
-        maxVal : 5
-      },
-      {
-        itemName : 'NoDoze',
-        currentVal : 0,
-        maxVal : 5
-      },
-      {
-        itemName : 'Energy Drink',
-        currentVal : 0,
-        maxVal : 3
-      },
-      {
-        itemName : 'Jumper Cables',
-        currentVal : 0,
-        maxVal : 1
-      },
-      {
-        itemName : 'Snacks',
-        currentVal : 0,
-        maxVal : 5
-      },
-      {
-        itemName : 'Water',
-        currentVal : 0,
-        maxVal : 5
-      },
-      {
-        itemName : 'Asprin',
-        currentVal : 0,
-        maxVal : 5
+    this.inventory = {
+      water: {
+        currentVal: 5,
+        maxVal: 5
       }
-    ]
+    }
 
     if (urlParams.get('selectedCar') == 'Lambo') {
       this.car = Lambo;
@@ -173,9 +127,17 @@ class drinkWaterEvent extends gEventClass {
     super('You took a drink of water!');
   }
   play(player) {
-    let randWater = Math.floor((Math.random() * 45) + 1);
-    player.bladder = player.bladder - randWater;
-    $('.activity-log').prepend('<p>'+this.desc+'</p>');
+    console.log(player.thirst);
+    if (player.thirst >= 0 && player.inventory.water.currentVal < 0) {
+      player.inventory.water.currentVal = player.inventory.water.currentVal - 1;
+      let randWater = Math.floor((Math.random() * 45) + 1);
+      player.bladder = player.bladder - randWater;
+      player.thirst = 100;
+      $('.activity-log').prepend('<p>'+this.desc+'</p>');
+    } else {
+      player.drowziness = player.drowziness - 1;
+      $('.activity-log').prepend('<p>You are out of water!</p>');
+    }
   }
 }
 
@@ -342,35 +304,50 @@ function moneyTick(player) {
 }
 
 function drowzinessTick(player) {
+  //Make sure that these values cannot go below 0;
+  if (player.drowziness <= 0) {
+    player.drowziness = 0;
+  }
   $('#drowziness').val(player.drowziness);
 }
 
 function hungerTick(player) {
+  player.hunger = player.hunger - 1;
+  //Make sure that these values cannot go below 0;
+  if (player.hunger <= 0) {
+    player.hunger = 0;
+  }
   $('#hunger').val(player.hunger);
 }
 
 function thirstTick(player) {
+  player.thirst = player.thirst - 1;
+  //Make sure that these values cannot go below 0;
+  if (player.thirst <= 0) {
+    player.thirst = 0;
+  }
   $('#thirst').val(player.thirst);
 }
 
 function bladderTick(player) {
+  //Make sure that these values cannot go below 0;
+  if (player.bladder <= 0) {
+    player.bladder = 0;
+  }
   $('#bladder').val(player.bladder);
 }
 
 function randomEventTick(player) {
   let windSheildlEventInstance = new windsheildRockEvent();
   let foundMoneyEventInstance = new foundMoneyEvent();
-  let drinkWaterEventInstance = new drinkWaterEvent();
   let speedingEventInstance = new speedingEvent();
   let reckLessDrivingEventInstance = new reckLessDrivingEvent();
   let beingFollowedEventInstance = new beingFollowedEvent();
   listOfRandomEvents = [
     windSheildlEventInstance,
     foundMoneyEventInstance,
-    drinkWaterEventInstance,
     speedingEventInstance,
     reckLessDrivingEventInstance
-    // beingFollowedEventInstance
   ];
 
   listOfRandomEvents[Math.floor(Math.random()*listOfRandomEvents.length)].play(player);
@@ -378,12 +355,14 @@ function randomEventTick(player) {
 }
 
 function staticEventTick(player) {
+  let drinkWaterEventInstance = new drinkWaterEvent();
   let windSheildBreakEventInstance = new windSheildBreakEvent();
   let windSheildFixEventInstance = new windSheildFixEvent();
   let haveToPissEventInstance = new haveToPissEvent();
   let getOutOfJailEventInstance = new getOutOfJailEvent();
 
   listOfStaticEvents = [
+    drinkWaterEventInstance,
     windSheildBreakEventInstance,
     windSheildFixEventInstance,
     haveToPissEventInstance,

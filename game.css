@@ -494,6 +494,14 @@
   margin: 0;
 }
 
+.car-selector .flag {
+  display: inline;
+  width: 50px;
+  margin-right: 20px;
+  height: auto;
+  padding: 0;
+}
+
 .car-selector.active {
   border: 1px solid #d40000;
 }
