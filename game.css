@@ -516,6 +516,25 @@
   padding: 4px 0;
 }
 
+.eventContainer {
+  padding: 10px 0;
+  text-align: center;
+}
+
+.eventContainer p {
+  font-size: 20px;
+  padding: 0 20px;
+  margin: 0;
+}
+
+.eventContainer button {
+  background-color: #f9f9f9;
+  color: #000;
+  border: none;
+  padding: 6px 8px;
+  margin: 0 4px;
+}
+
 .cloud:before {
   -webkit-border-radius: 200px;
   -moz-border-radius: 200px;

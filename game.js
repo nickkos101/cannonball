@@ -24,6 +24,8 @@ let playerClass = class {
     this.bladder = 100;
     this.drowziness = 100;
 
+    this.headache = false;
+
     this.money = 1000;
     this.inventory = {
       water: {
@@ -119,6 +121,19 @@ class foundMoneyEvent extends gEventClass {
     player.money = player.money + randMoney;
     $('.activity-log').prepend('<p class="text-success">You found $'+randMoney+'!</p>');
     soundEngine('assets/sound/cash.wav');
+  }
+}
+
+
+class headAcheEvent extends gEventClass {
+  constructor(desc) {
+    super('You are getting a headache!');
+  }
+  play(player) {
+    if (player.headache == false) {
+      player.headache = true;
+      $('.activity-log').prepend('<p class="text-warning">You are getting a headache!</p>');
+    }
   }
 }
 
@@ -338,19 +353,19 @@ function bladderTick(player) {
 }
 
 function randomEventTick(player) {
-  let windSheildlEventInstance = new windsheildRockEvent();
-  let foundMoneyEventInstance = new foundMoneyEvent();
-  let speedingEventInstance = new speedingEvent();
-  let reckLessDrivingEventInstance = new reckLessDrivingEvent();
-  let beingFollowedEventInstance = new beingFollowedEvent();
-  listOfRandomEvents = [
-    windSheildlEventInstance,
-    foundMoneyEventInstance,
-    speedingEventInstance,
-    reckLessDrivingEventInstance
-  ];
-
-  listOfRandomEvents[Math.floor(Math.random()*listOfRandomEvents.length)].play(player);
+  // let windSheildlEventInstance = new windsheildRockEvent();
+  // let foundMoneyEventInstance = new foundMoneyEvent();
+  // let speedingEventInstance = new speedingEvent();
+  // let reckLessDrivingEventInstance = new reckLessDrivingEvent();
+  // let beingFollowedEventInstance = new beingFollowedEvent();
+  // listOfRandomEvents = [
+  //   windSheildlEventInstance,
+  //   foundMoneyEventInstance,
+  //   speedingEventInstance,
+  //   reckLessDrivingEventInstance
+  // ];
+  //
+  // listOfRandomEvents[Math.floor(Math.random()*listOfRandomEvents.length)].play(player);
 
 }
 
