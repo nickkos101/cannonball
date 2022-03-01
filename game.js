@@ -396,6 +396,21 @@ function staticEventTick(player) {
   }
 }
 
+//THIS IS WHAT EVENT DATA SHOULD LOOK LIKE.
+// {
+//   description: '',
+//   timer: 10,
+//   option1: '',
+//   option2: '',
+//   option3: '',
+// },
+
+function setUpTimedEvent(event) {
+  $('.eventContainer').empty();
+  $('.eventContainer').append('<p><i class="fas fa-clock"></i>'+event.timer.toString()+' '+event.description+'</p>');
+  $('.eventContainer').append('<button>'+event.option1+'</button><button>'+event.option2+'</button><button>'+event.option3+'</button>');
+}
+
 
 
 let player = new playerClass();
